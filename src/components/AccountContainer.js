@@ -21,20 +21,23 @@ function AccountContainer() {
 
 
 function handleSubmission(newTransaction) {
+  if (newTransaction.date ==="" || newTransaction.description === "" || newTransaction.amount === 0 || newTransaction.category === "") {
+    alert("Fill In")
+  } else {
     fetch("http://localhost:8001/transactions", {
       method: "POST",
       headers: {
         "content-type": "application-json",
       },
       body: JSON.stringify(newTransaction)
-  })
-  .then((response) => {
-   return response.json() 
-  })
-  .then(addTransaction =>{
-    setTransactions (prevtransactions => [...prevtransactions, addTransaction]);
-  })
-  .catch((error) => {
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then(addTransaction => {
+        setTransactions(prevtransactions => [...prevtransactions, addTransaction]);
+      })
+      .catch((error) => {
         console.log(error)
          });
 
